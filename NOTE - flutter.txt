@@ -1,0 +1,75 @@
+IMPORT CONVENTION
+	You must follow this order to avoid error
+		import 'dart' packages first
+		import flutter packages next
+		import other packages
+		import your app in-built packages
+
+USING MATH
+import 'dart:math';
+
+	 Use Random to generate integer
+	 Random().nextInt(max); // max is the maximum number. It generates btw 0 and max-1
+
+
+WIDGET LIFECYCLE
+
+Stateless Widgets
+	constructor function
+	build()
+
+Statefull Widgets
+	constructor function
+	initState()
+		This is when the widget is first initialized
+	build()
+	setState()
+		Something has changed, so we want the widget to rebuild
+	didUpdateWidget()
+		This is when a widget has been updated
+		build() is called again
+	dispose()
+		This is executed once the widget is removed from the view
+
+
+APP LIFECYCLE
+inactive
+	When app is inactive, no user input received
+paused
+	App not visible to user, running in background
+resumed
+	App is again visible and responding to user input
+suspending
+	App is about to be suspended (exited)
+HOW TO USER THEM
+class _MyHomePageState extends State<MyHomePage> with WidgetBindingObserver {
+	....
+		....
+	..
+	  ..
+
+	// Tell your app to listen to the observers
+	@override
+	void initState() {
+		WidgetsBinding.instance.addObserver(this);
+		super.initState();
+	}
+
+
+	@override
+	void didChangeAppLifecycleState(AppLifecycleState state) {
+		...
+		print(state);
+		// state.AppLifecycleState.inactive;
+		// state.AppLifecycleState.paused;
+		// state.AppLifecycleState.resumed;
+		// state.AppLifecycleState.suspended;
+	}
+
+	// Remove/clear the listening
+	@override
+	void dispose() {
+		WidgetsBinding.instance.removeObserver(this);
+		super.dispose();
+	}
+}		
